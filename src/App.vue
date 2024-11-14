@@ -1,36 +1,35 @@
 <template>
-  <MainView class="main"></MainView>  
+  <MainView class="main"></MainView>
 </template>
 
 <script>
-import MainView from './view/MainView.vue';
+import MainView from "./view/MainView.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   provide: {
-    message: "hello"
+    message: "hello",
   },
   components: {
-    MainView
+    MainView,
   },
   mounted() {
     const a = 1;
     const type = typeof a;
     if (type === "number") {
       console.log("x");
-      
     }
-  }
-}
+  },
+};
 </script>
 
 <style>
-  :root {
-    overflow: hidden;
-  }
-  .main {
-    width: 100%;
-    height: 100%;
-  }
+:root {
+  overflow: hidden;
+}
+.main {
+  width: 100%;
+  height: 100%;
+}
 </style>
 
