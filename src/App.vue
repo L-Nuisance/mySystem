@@ -1,26 +1,36 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <MainView class="main"></MainView>  
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MainView from './view/MainView.vue';
 
 export default {
   name: 'App',
+  provide: {
+    message: "hello"
+  },
   components: {
-    HelloWorld
+    MainView
+  },
+  mounted() {
+    const a = 1;
+    const type = typeof a;
+    if (type === "number") {
+      console.log("x");
+      
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  :root {
+    overflow: hidden;
+  }
+  .main {
+    width: 100%;
+    height: 100%;
+  }
 </style>
+
