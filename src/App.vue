@@ -1,25 +1,10 @@
 <template>
-  <MainView class="main"></MainView>
+  <router-view name="main" id="main" class="main"></router-view>
 </template>
 
 <script>
-import MainView from "./view/MainView.vue";
-
 export default {
   name: "App",
-  provide: {
-    message: "hello",
-  },
-  components: {
-    MainView,
-  },
-  mounted() {
-    const a = 1;
-    const type = typeof a;
-    if (type === "number") {
-      console.log("x");
-    }
-  },
 };
 </script>
 
