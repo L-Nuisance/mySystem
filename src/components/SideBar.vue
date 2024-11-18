@@ -2,16 +2,22 @@
 <template>
   <div class="sideBar">
     <el-scrollbar class="menu">
-      <el-menu background-color="white">
+      <el-menu
+        active-text-color="#172554"
+        background-color="#545c64"
+        text-color="#f1f5f9"
+      >
         <el-sub-menu
           v-for="subMenu in props.menuList"
           :key="subMenu.index"
           :index="subMenu.index"
         >
           <template #title>
-            <el-icon v-if="subMenu.index === '1'"><User /></el-icon>
-            <el-icon v-if="subMenu.index === '2'"><Message /></el-icon>
-            <el-icon v-if="subMenu.index === '3'"><Setting /></el-icon>
+            <!-- 根据菜单index设置图标 -->
+            <el-icon v-if="subMenu.index === '1'"><House /></el-icon>
+            <el-icon v-if="subMenu.index === '2'"><User /></el-icon>
+            <el-icon v-if="subMenu.index === '3'"><Message /></el-icon>
+            <el-icon v-if="subMenu.index === '4'"><Setting /></el-icon>
             <span>{{ subMenu.title }}</span>
           </template>
           <el-menu-item-group>
@@ -19,6 +25,7 @@
               v-for="item in subMenu.children"
               :key="item.index"
               :index="item.index"
+              @click="props.testPost"
             >
               {{ item.title }}
             </el-menu-item>
@@ -30,13 +37,14 @@
 </template>
 
 <script>
-import { User, Message, Setting } from "@element-plus/icons-vue";
+import { House, User, Message, Setting } from "@element-plus/icons-vue";
 export default {
   name: "SideBar",
   props: {
     props: Object,
   },
   components: {
+    House,
     User,
     Message,
     Setting,
@@ -133,5 +141,8 @@ export default {
 }
 .menu {
   height: 100%;
+  background-color: #545c64;
+}
+.el-menu--horizontal {
 }
 </style>
