@@ -2,15 +2,27 @@
   <div class="studentList">
     <el-row :gutter="10">
       <el-col :span="5">
-        <el-input v-model="name" placeholder="学生姓名"></el-input>
+        <el-input
+          :disabled="searchLoading || resetLoading"
+          v-model="name"
+          placeholder="学生姓名"
+        ></el-input>
       </el-col>
       <el-col :span="5">
-        <el-input v-model="studentId" placeholder="学生学号"></el-input>
+        <el-input
+          :disabled="searchLoading || resetLoading"
+          v-model="studentId"
+          placeholder="学生学号"
+        ></el-input>
       </el-col>
       <el-col :span="4">
-        <el-select v-model="studentEva" placeholder="总评筛选">
+        <el-select
+          :disabled="searchLoading || resetLoading"
+          v-model="studentEva"
+          placeholder="总评筛选"
+        >
           <el-option
-            v-for="item in options"
+            v-for="item in evaOptions"
             :key="item.value"
             :label="item.label"
             :value="item.value"
@@ -18,9 +30,13 @@
         </el-select>
       </el-col>
       <el-col :span="4">
-        <el-select v-model="studentEva" placeholder="课程筛选">
+        <el-select
+          :disabled="searchLoading || resetLoading"
+          v-model="studentCourse"
+          placeholder="课程筛选"
+        >
           <el-option
-            v-for="item in options"
+            v-for="item in courseOptions"
             :key="item.value"
             :label="item.label"
             :value="item.value"
@@ -30,15 +46,32 @@
       <el-col :span="6">
         <div class="jus-con-between">
           <div class="jus-con-start">
-            <el-button type="primary" class="button" :icon="Search"
+            <el-button
+              :loading="!resetLoading && searchLoading"
+              :disabled="resetLoading"
+              type="primary"
+              class="button"
+              :icon="Search"
+              @click="search"
               >搜索</el-button
             >
-            <el-button type="primary" class="button" :icon="Refresh"
+            <el-button
+              :loading="!searchLoading && resetLoading"
+              :disabled="searchLoading"
+              type="primary"
+              class="button"
+              :icon="Refresh"
+              @click="reset"
               >重置</el-button
             >
           </div>
           <div class="jus-con-end">
-            <el-button class="button" :icon="Download">导出</el-button>
+            <el-button
+              :disabled="searchLoading || resetLoading"
+              class="button"
+              :icon="Download"
+              >导出</el-button
+            >
           </div>
         </div>
       </el-col>
@@ -47,9 +80,11 @@
       <Table
         class="all-w-h"
         :total="total"
+        :height="height"
+        :data="tableData"
         :columns="columns"
-        :tableData="tableData"
         :onPageChang="pageChang"
+        :loading="searchLoading || resetLoading"
       ></Table>
     </el-row>
   </div>
@@ -76,6 +111,9 @@ export default {
       name: "",
       studentId: "",
       studentEva: "",
+      studentCourse: "",
+      searchLoading: false, // 搜索加载
+      resetLoading: false, // 重置加载
 
       // 表格有关
       columns: [
@@ -95,6 +133,16 @@ export default {
           label: "姓名",
           prop: "name",
           key: "name",
+          formatter: (row, column, cellValue) => {
+            const node = h("a", {
+              class: "click-data",
+              innerHTML: cellValue,
+              onClick: () => {
+                console.log(cellValue);
+              },
+            });
+            return node;
+          },
         },
         {
           index: 2,
@@ -107,6 +155,7 @@ export default {
           label: "已选课程",
           prop: "selectCourse",
           key: "selectCourse",
+          showOverflowTooltip: true,
         },
         {
           index: 4,
@@ -114,13 +163,14 @@ export default {
           prop: "studentEva",
           key: "studentEva",
         },
-      ],
+      ], // columns的设置基本同于el-table-column，多字段属性需使用小驼峰命名法
       tableData: [
         {
           index: 0,
           name: "张三",
           studentId: "0000",
-          selectCourse: "高等数学、高等物理",
+          selectCourse:
+            "高等数学、高等物理、高等数学、高等物理、高等数学、高等物理",
           studentEva: "良好",
         },
         {
@@ -153,8 +203,9 @@ export default {
         },
       ],
       total: 990,
+      height: "75vh",
 
-      options: [
+      evaOptions: [
         {
           value: 0,
           label: "优秀",
@@ -176,12 +227,43 @@ export default {
           label: "极差",
         },
       ],
+      courseOptions: [
+        {
+          value: 0,
+          label: "高等数学",
+        },
+        {
+          value: 1,
+          label: "高等物理",
+        },
+        {
+          value: 2,
+          label: "大学英语",
+        },
+      ],
     };
   },
   methods: {
     // 请求表格有关数据
     getTableData(params) {
+      const that = this;
       console.log(params);
+      //请求表格数据
+      [that.searchLoading, that.resetLoading] = [false, false];
+    },
+    // 搜索
+    search() {
+      const that = this;
+      const temp = {};
+      that.searchLoading = true;
+      that.getTableData(temp);
+    },
+    // 重置
+    reset() {
+      const that = this;
+      const temp = {};
+      that.resetLoading = true;
+      that.getTableData(temp);
     },
 
     // 表格页码变化处理方法

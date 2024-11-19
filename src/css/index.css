@@ -19,15 +19,32 @@
   margin-left:10px;
 }
 
+/* 右外边距 */
+.m-r {
+  margin-right:10px;
+}
+
 /* 上外边距 */
 .m-t {
   margin-top:10px;
+}
+
+/* 下外边距 */
+.m-b {
+  margin-bottom:10px;
 }
 
 /* 按钮 */
 .button {
   width: 70px;
 }
+
+/* 穿透数据样式 */
+.click-data {
+  color: #409EFF;
+  cursor: pointer;
+}
+
 
 /* flex布局有关 */
 
