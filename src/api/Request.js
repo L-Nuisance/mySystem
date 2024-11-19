@@ -7,8 +7,10 @@ import { ElMessage } from "element-plus";
  */
 axios.interceptors.request.use(
   (config) => {
-    config.headers["Token"] = "token"; //设置请求头部token
-    config.headers["Content-Type"] = "application/json"; //设置请求头部内容类型
+    if (!config.headers["Content-Type"]) {
+      config.headers["Content-Type"] = "application/json"; //设置默认请求头部内容类型
+    }
+    config.headers["Authorization"] = "token"; //设置请求头部token
     // 其他请求前设置
 
     return config;
@@ -40,10 +42,10 @@ axios.interceptors.response.use(
  * @param {*} url
  * @returns
  */
-const get = (params, url) => {
+const get = (params, url, config) => {
   return new Promise((resolve, reject) => {
     axios
-      .get(url, { params: params })
+      .get(url, { params: params }, config)
       .then((res) => {
         resolve(res);
       })
@@ -59,10 +61,10 @@ const get = (params, url) => {
  * @param {*} url
  * @returns
  */
-const post = (params, url) => {
+const post = (params, url, config) => {
   return new Promise((resolve, reject) => {
     axios
-      .post(url, params)
+      .post(url, params, config)
       .then((res) => {
         resolve(res);
       })
@@ -78,12 +80,12 @@ const post = (params, url) => {
  * @param {*} params
  * @param {*} url
  */
-const request = (method, params, url) => {
+const request = (method, params, url, config) => {
   const requestUrl = baseUrl + url;
   return new Promise((resolve, reject) => {
     switch (method) {
       case "get": {
-        get(params, requestUrl)
+        get(params, requestUrl, config)
           .then((res) => {
             resolve(res);
           })
@@ -93,7 +95,7 @@ const request = (method, params, url) => {
         break;
       }
       case "post": {
-        post(params, requestUrl)
+        post(params, requestUrl, config)
           .then((res) => {
             resolve(res);
           })
