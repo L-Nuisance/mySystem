@@ -1,4 +1,4 @@
-import { createMemoryHistory, createRouter } from "vue-router";
+import { createWebHistory, createRouter } from "vue-router";
 
 const routes = [
   {
@@ -14,10 +14,25 @@ const routes = [
       main: () => import("@/view/MainView"),
     },
   },
+  {
+    path: "/teacher",
+    components: {
+      main: () => import("@/view/MainView"),
+    },
+    children: [
+      {
+        path: "studentList",
+        name: "studentList",
+        components: {
+          content: () => import("@/page/teacher/StudentList"),
+        },
+      },
+    ],
+  },
 ];
 
 const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHistory(),
   routes,
 });
 

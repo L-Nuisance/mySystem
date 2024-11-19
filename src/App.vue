@@ -1,5 +1,5 @@
 <template>
-  <router-view name="main" id="main" class="main"></router-view>
+  <router-view name="main" id="main" class="all-w-h"></router-view>
 </template>
 
 <script>
@@ -11,10 +11,6 @@ export default {
 <style>
 :root {
   overflow: hidden;
-}
-.main {
-  width: 100%;
-  height: 100%;
 }
 </style>
 

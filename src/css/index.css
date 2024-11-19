@@ -1,3 +1,104 @@
 .bc-red {
   background-color: red;
 }
+
+/* 长宽100% */
+.all-w-h {
+  width: 100%;
+  height: 100%;
+}
+
+/* 标题式文字 */
+.title {
+  font-weight: 800;
+  font-size: 1.25rem;
+}
+
+/* 左外边距 */
+.m-l {
+  margin-left:10px;
+}
+
+/* 上外边距 */
+.m-t {
+  margin-top:10px;
+}
+
+/* 按钮 */
+.button {
+  width: 70px;
+}
+
+/* flex布局有关 */
+
+/* 主轴对齐方式 */
+.jus-con-start {
+  display: flex;
+  justify-content: start;
+}
+.jus-con-end {
+  display: flex;
+  justify-content: end;
+}
+.jus-con-center {
+  display: flex;
+  justify-content: center;
+}
+.jus-con-between {
+  display: flex;
+  justify-content: space-between;
+}
+.jus-con-around {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* 交叉轴对齐方式 */
+.ali-item-start {
+  display: flex;
+  align-items: flex-start;
+}
+.ali-item-end {
+  display: flex;
+  align-items: flex-end;
+}
+.ali-item-center {
+  display: flex;
+  align-items: center;
+}
+
+/* 多条主轴对齐方式 */
+.ali-con-start {
+  display: flex;
+  align-content: flex-start;
+}
+.ali-con-end {
+  display: flex;
+  align-content: flex-end;
+}
+.ali-con-center {
+  display: flex;
+  align-content: center;
+}
+.ali-con-between {
+  display: flex;
+  align-content: space-between;
+}
+.ali-con-around {
+  display: flex;
+  align-content: space-around;
+}
+
+/* 手型鼠标 */
+.cursor-pointer {
+  cursor: pointer;
+}
+
+
+
+/* 禁止换行 省略多余部分 */
+.nowrap-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
