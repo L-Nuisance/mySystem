@@ -88,18 +88,22 @@
         :loading="searchLoading || resetLoading"
       ></Table>
     </el-row>
+    <StudentAllTest ref="allTest" :props="allTestProps"></StudentAllTest>
   </div>
 </template>
 
 <script>
 import Table from "@/components/Table.vue";
+import StudentAllTest from "./components/StudentAllTest.vue";
 import { Search, Refresh, Download } from "@element-plus/icons-vue";
+import { ElText } from "element-plus";
 import { h } from "vue";
 
 export default {
   name: "StudentList",
   components: {
     Table,
+    StudentAllTest,
   },
   data() {
     return {
@@ -136,12 +140,18 @@ export default {
           label: "姓名",
           prop: "name",
           key: "name",
+          width: 90,
           formatter: (row, column, cellValue) => {
             const node = h("a", {
               class: "click-data",
               innerHTML: cellValue,
               onClick: () => {
-                console.log(cellValue);
+                const that = this;
+                that.allTestProps = {
+                  title: row.name + "的全部测评",
+                  studentId: row.studentId,
+                };
+                that.$nextTick(that.openAllTest);
               },
             });
             return node;
@@ -155,58 +165,111 @@ export default {
         },
         {
           index: 3,
+          label: "年级",
+          prop: "grade",
+          key: "grade",
+        },
+        {
+          index: 4,
+          label: "学校",
+          prop: "school",
+          key: "school",
+        },
+        {
+          index: 5,
           label: "已选课程",
           prop: "selectCourse",
           key: "selectCourse",
           showOverflowTooltip: true,
         },
         {
-          index: 4,
+          index: 6,
           label: "学生总评",
           prop: "studentEva",
           key: "studentEva",
+          formatter: (row, column, value) => {
+            let type = "";
+            let text = "";
+            if (value === 0) {
+              type = "success";
+              text = "优秀";
+            } else if (value === 1) {
+              type = "primary";
+              text = "良好";
+            } else if (value === 2) {
+              type = "default";
+              text = "普通";
+            } else if (value === 3) {
+              type = "warning";
+              text = "较差";
+            } else if (value === 4) {
+              type = "error";
+              text = "极差";
+            }
+            const node = h(
+              ElText,
+              {
+                type: type,
+              },
+              text
+            );
+            return node;
+          },
         },
       ], // columns的设置基本同于el-table-column，多字段属性需使用小驼峰命名法
       tableData: [
         {
           index: 0,
-          name: "张三",
+          name: "李四",
           studentId: "0000",
+          grade: "大二",
+          school: "湖南大学",
           selectCourse:
             "高等数学、高等物理、高等数学、高等物理、高等数学、高等物理",
-          studentEva: "良好",
+          studentEva: 0,
         },
         {
           index: 1,
           name: "张三",
           studentId: "0001",
+          grade: "大二",
+          school: "湖南大学",
           selectCourse: "高等数学、高等物理",
-          studentEva: "良好",
+          studentEva: 1,
         },
         {
           index: 2,
           name: "张三",
           studentId: "0002",
+          grade: "大二",
+          school: "湖南大学",
           selectCourse: "高等数学、高等物理",
-          studentEva: "良好",
+          studentEva: 4,
         },
         {
           index: 3,
           name: "张三",
           studentId: "0003",
+          grade: "大二",
+          school: "湖南大学",
           selectCourse: "高等数学、高等物理",
-          studentEva: "良好",
+          studentEva: 3,
         },
         {
           index: 4,
           name: "张三",
           studentId: "0004",
+          grade: "大二",
+          school: "湖南大学",
           selectCourse: "高等数学、高等物理",
-          studentEva: "良好",
+          studentEva: 2,
         },
       ],
       total: 990,
       height: "75vh",
+
+      // 数据穿透
+      allTestProps: {},
 
       evaOptions: [
         {
@@ -248,17 +311,10 @@ export default {
   },
   methods: {
     // 请求表格有关数据
-    getTableData(params) {
+    getTableData() {
       const that = this;
-      console.log(params);
-      //请求表格数据
-      that.searchLoading = false;
-      that.resetLoading = false;
-    },
-    // 搜索
-    search() {
-      const that = this;
-      const temp = {
+      // 请求参数设置
+      const params = {
         pageSize: that.pageSize,
         currentPage: that.currentPage,
         name: that.name,
@@ -266,8 +322,16 @@ export default {
         studentCourse: that.studentCourse,
         studentEva: that.studentEva,
       };
+      console.log(params);
+      // 请求表格数据
+      that.searchLoading = false;
+      that.resetLoading = false;
+    },
+    // 搜索
+    search() {
+      const that = this;
       that.searchLoading = true;
-      that.getTableData(temp);
+      that.getTableData();
     },
     // 重置
     reset() {
@@ -277,32 +341,27 @@ export default {
       that.studentId = "";
       that.studentCourse = null;
       that.studentEva = null;
-      const temp = {
-        pageSize: that.pageSize,
-        currentPage: that.currentPage,
-        name: that.name,
-        studentId: that.studentId,
-        studentCourse: that.studentCourse,
-        studentEva: that.studentEva,
-      };
       this.$refs.table.reset();
-      that.getTableData(temp);
+      that.getTableData();
     },
-
     // 表格页码变化处理方法
     pageChang(pageSize, currentPage) {
       const that = this;
       that.pageSize = pageSize;
       that.currentPage = currentPage;
-      const temp = {
-        pageSize: that.pageSize,
-        currentPage: that.currentPage,
-        name: that.name,
-        studentId: that.studentId,
-        studentCourse: that.studentCourse,
-        studentEva: that.studentEva,
-      };
-      that.getTableData(temp);
+      that.getTableData();
+    },
+    // 打开学生全测试穿透
+    openAllTest() {
+      const that = this;
+      console.log("openAllTest");
+      that.$refs.allTest.openAllTest();
+    },
+    // 关闭学生全测试穿透
+    closeAllTest() {
+      console.log("closeAllTest");
+      const that = this;
+      that.$refs.allTest.closeAllTest();
     },
   },
 };

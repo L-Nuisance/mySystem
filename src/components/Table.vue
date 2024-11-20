@@ -69,6 +69,7 @@ export default {
     data: {
       require: true,
       type: [],
+      default: [],
     },
     height: {
       require: false,
