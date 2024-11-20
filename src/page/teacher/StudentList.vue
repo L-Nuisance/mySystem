@@ -78,6 +78,7 @@
     </el-row>
     <el-row>
       <Table
+        ref="table"
         class="all-w-h"
         :total="total"
         :height="height"
@@ -112,6 +113,8 @@ export default {
       studentId: "",
       studentEva: "",
       studentCourse: "",
+      pageSize: 10,
+      currentPage: 1,
       searchLoading: false, // 搜索加载
       resetLoading: false, // 重置加载
 
@@ -249,29 +252,55 @@ export default {
       const that = this;
       console.log(params);
       //请求表格数据
-      [that.searchLoading, that.resetLoading] = [false, false];
+      that.searchLoading = false;
+      that.resetLoading = false;
     },
     // 搜索
     search() {
       const that = this;
-      const temp = {};
+      const temp = {
+        pageSize: that.pageSize,
+        currentPage: that.currentPage,
+        name: that.name,
+        studentId: that.studentId,
+        studentCourse: that.studentCourse,
+        studentEva: that.studentEva,
+      };
       that.searchLoading = true;
       that.getTableData(temp);
     },
     // 重置
     reset() {
       const that = this;
-      const temp = {};
       that.resetLoading = true;
+      that.name = "";
+      that.studentId = "";
+      that.studentCourse = null;
+      that.studentEva = null;
+      const temp = {
+        pageSize: that.pageSize,
+        currentPage: that.currentPage,
+        name: that.name,
+        studentId: that.studentId,
+        studentCourse: that.studentCourse,
+        studentEva: that.studentEva,
+      };
+      this.$refs.table.reset();
       that.getTableData(temp);
     },
 
     // 表格页码变化处理方法
     pageChang(pageSize, currentPage) {
       const that = this;
+      that.pageSize = pageSize;
+      that.currentPage = currentPage;
       const temp = {
-        pageSize: pageSize,
-        currentPage: currentPage,
+        pageSize: that.pageSize,
+        currentPage: that.currentPage,
+        name: that.name,
+        studentId: that.studentId,
+        studentCourse: that.studentCourse,
+        studentEva: that.studentEva,
       };
       that.getTableData(temp);
     },

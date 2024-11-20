@@ -80,6 +80,7 @@ export default {
       type: Number,
       default: 0,
     },
+    // pageSize与currentPage改变时的回调：(pageSize, currentPage) => void
     onPageChang: {
       require: false,
       type: Function,
@@ -87,13 +88,22 @@ export default {
   },
   watch: {
     pageSize() {
-      if (this.onPageChang) {
-        this.onPageChang(this.pageSize, this.currentPage);
+      const that = this;
+      if (that.onPageChang) {
+        that.onPageChang(that.pageSize, that.currentPage);
       }
     },
     currentPage() {
-      if (this.onPageChang) {
-        this.onPageChang(this.pageSize, this.currentPage);
+      const that = this;
+      if (that.onPageChang) {
+        that.onPageChang(that.pageSize, that.currentPage);
+      }
+    },
+    reset(value) {
+      if (value === true) {
+        const that = this;
+        that.currentPage = 1;
+        that.pageSize = 10;
       }
     },
   },
@@ -113,6 +123,13 @@ export default {
         " style="stroke-width: 4px; fill: rgba(0, 0, 0, 0)"/>
       `,
     };
+  },
+  methods: {
+    reset() {
+      const that = this;
+      that.pageSize = 10;
+      that.currentPage = 1;
+    },
   },
 };
 </script>
