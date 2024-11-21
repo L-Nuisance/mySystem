@@ -45,6 +45,28 @@
   cursor: pointer;
 }
 
+/* 困难 */
+.difficult {
+  text-align: center;
+  color: #ef4444;
+  background-color: #fecaca;
+  border-radius: 50px;
+}
+/* 普通 */
+.normal {
+  text-align: center;
+  color: #0ea5e9;
+  background-color: #bae6fd;
+  border-radius: 50px;
+}
+/* 简单 */
+.easy {
+  text-align: center;
+  color: #10b981;
+  background-color: #a7f3d0;
+  border-radius: 50px;
+}
+
 
 /* flex布局有关 */
 

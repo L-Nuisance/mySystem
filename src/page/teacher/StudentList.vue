@@ -187,6 +187,7 @@ export default {
           label: "学生总评",
           prop: "studentEva",
           key: "studentEva",
+          sortable: true,
           formatter: (row, column, value) => {
             let type = "";
             let text = "";
@@ -341,7 +342,7 @@ export default {
       that.studentId = "";
       that.studentCourse = null;
       that.studentEva = null;
-      this.$refs.table.reset();
+      that.$refs.table.reset();
       that.getTableData();
     },
     // 表格页码变化处理方法

@@ -32,6 +32,7 @@
 
 <script>
 import Table from "@/components/Table.vue";
+import { ElText } from "element-plus";
 import { h } from "vue";
 export default {
   name: "StudentAllTest",
@@ -79,24 +80,71 @@ export default {
           label: "题目总数",
           prop: "questionNum",
           key: "questionNum",
+          sortable: true,
         },
         {
           index: 3,
           label: "测评难度",
           prop: "difficulty",
           key: "difficulty",
+          sortable: true,
+          formatter: (row, column, cellValue) => {
+            const text =
+              cellValue === 0 ? "简单" : cellValue === 1 ? "普通" : "困难";
+            const className =
+              cellValue === 0
+                ? "easy"
+                : cellValue === 1
+                ? "normal"
+                : "difficult";
+            const node = h("div", {
+              class: className,
+              innerHTML: text,
+            });
+            return node;
+          },
         },
         {
           index: 4,
           label: "测评分数",
           prop: "score",
           key: "score",
+          sortable: true,
         },
         {
           index: 5,
           label: "评价",
           prop: "eva",
           key: "eva",
+          sortable: true,
+          formatter: (row, column, value) => {
+            let type = "";
+            let text = "";
+            if (value === 0) {
+              type = "success";
+              text = "优秀";
+            } else if (value === 1) {
+              type = "primary";
+              text = "良好";
+            } else if (value === 2) {
+              type = "default";
+              text = "普通";
+            } else if (value === 3) {
+              type = "warning";
+              text = "较差";
+            } else if (value === 4) {
+              type = "error";
+              text = "极差";
+            }
+            const node = h(
+              ElText,
+              {
+                type: type,
+              },
+              text
+            );
+            return node;
+          },
         },
       ], // columns的设置基本同于el-table-column，多字段属性需使用小驼峰命名法
       tableData: [
@@ -105,45 +153,45 @@ export default {
           testId: "0000",
           course: "高等数学",
           questionNum: 60,
-          difficulty: "困难",
+          difficulty: 2,
           score: 80,
-          eva: "良好",
+          eva: 1,
         },
         {
           index: 1,
           testId: "0001",
           course: "大学物理",
           questionNum: 60,
-          difficulty: "困难",
+          difficulty: 1,
           score: 80,
-          eva: "良好",
+          eva: 0,
         },
         {
           index: 2,
           testId: "0002",
           course: "高等数学",
           questionNum: 60,
-          difficulty: "困难",
+          difficulty: 0,
           score: 80,
-          eva: "良好",
+          eva: 4,
         },
         {
           index: 3,
           testId: "0003",
           course: "高等数学",
           questionNum: 60,
-          difficulty: "困难",
+          difficulty: 1,
           score: 80,
-          eva: "良好",
+          eva: 3,
         },
         {
           index: 4,
           testId: "0004",
           course: "高等数学",
           questionNum: 60,
-          difficulty: "困难",
+          difficulty: 0,
           score: 80,
-          eva: "良好",
+          eva: 2,
         },
       ],
       total: 50,

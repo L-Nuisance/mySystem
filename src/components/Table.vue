@@ -15,6 +15,8 @@
         >
           <el-table-column
             v-for="column in columns"
+            :type="column.type"
+            :index="column.index"
             :key="column.index"
             :prop="column.prop"
             :label="column.label"
@@ -26,7 +28,8 @@
             :header-align="column.headerAlign"
             :class-name="column.className"
             :fixed="column.fixed"
-          />
+            :sortable="column.sortable"
+          ></el-table-column>
           <template #empty>
             <el-empty description="啊哦，数据丢失辽..." image-size="100">
               <template #image>
