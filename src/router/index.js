@@ -34,6 +34,13 @@ const routes = [
           content: () => import("@/page/teacher/CourseList"),
         },
       },
+      {
+        path: "courseDetail",
+        name: "courseDetail",
+        components: {
+          content: () => import("@/page/teacher/CourseDetail"),
+        },
+      },
     ],
   },
 ];

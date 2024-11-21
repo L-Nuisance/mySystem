@@ -45,11 +45,4 @@ export default {
 </script>
 
 <style scoped>
-.card-body {
-  padding: 0;
-}
-.card:hover {
-  /* box-shadow: 2px -2px 2px 3px #ccc; */
-  /* background-color: red; */
-}
 </style>
