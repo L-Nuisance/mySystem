@@ -14,24 +14,40 @@
   font-size: 1.25rem;
 }
 
+/* 自动外边距 */
+.m-auto {
+  margin: auto 0;
+}
 /* 左外边距 */
 .m-l {
   margin-left:10px;
+}
+.m-l-far {
+  margin-left: 20px;
 }
 
 /* 右外边距 */
 .m-r {
   margin-right:10px;
 }
+.m-r-far {
+  margin-right: 20px;
+}
 
 /* 上外边距 */
 .m-t {
   margin-top:10px;
 }
+.m-t-far {
+  margin-top: 20px;
+}
 
 /* 下外边距 */
 .m-b {
   margin-bottom:10px;
+}
+.m-b-far {
+  margin-bottom: 20px;
 }
 
 /* 按钮 */
@@ -126,6 +142,13 @@
 .ali-con-around {
   display: flex;
   align-content: space-around;
+}
+/* 换行 */
+.can-wrap {
+  flex-wrap: wrap;
+}
+.no-wrap {
+  flex-wrap: nowrap;
 }
 
 /* 手型鼠标 */

@@ -27,6 +27,13 @@ const routes = [
           content: () => import("@/page/teacher/StudentList"),
         },
       },
+      {
+        path: "courseList",
+        name: "courseList",
+        components: {
+          content: () => import("@/page/teacher/CourseList"),
+        },
+      },
     ],
   },
 ];
