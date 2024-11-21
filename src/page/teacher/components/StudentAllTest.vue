@@ -6,10 +6,12 @@
       @open="getTableData"
       @closed="closeAllTest"
       width="50vw"
+      style="height: 70vh"
     >
       <Table
+        height="48vh"
         :columns="columns"
-        :data="tableData"
+        :data="[...tableData, ...tableData, ...tableData]"
         :loading="tableLoading"
         :total="total"
         :onPageChang="pageChang"
