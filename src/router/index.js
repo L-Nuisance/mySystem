@@ -1,4 +1,5 @@
 import { createWebHistory, createRouter } from "vue-router";
+import NotFound from "@/view/NotFound.vue";
 
 const routes = [
   {
@@ -42,6 +43,15 @@ const routes = [
         },
       },
     ],
+  },
+  {
+    path: "/404",
+    name: "NotFound",
+    components: { main: () => import("@/view/NotFound") },
+  },
+  {
+    path: "/:pathMatch(.*)",
+    redirect: "/404",
   },
 ];
 

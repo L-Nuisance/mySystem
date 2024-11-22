@@ -49,6 +49,7 @@
             :title="item.title"
             :imgUrl="item.imgUrl"
             class="cursor-pointer"
+            @click="goCourseDetail(item.courseId)"
           ></CourseCard>
         </el-col>
       </el-row>
@@ -77,18 +78,21 @@ export default {
       courseList: [
         {
           key: 0,
+          courseId: "0001",
           title: "课程",
           imgUrl:
             "https://th.bing.com/th/id/R.c7d767967e558a26022127fd0a9defb5?rik=9vn2mIuA6K%2f4Sw&riu=http%3a%2f%2fntzjyjs.zyk2.chaoxing.com%2fapi%2fdownload%2fa66613338be62110940011edef3d85ac&ehk=R0yLKw7ALtqfaa6OXET2RFQOXlTmEm6mJ9Z1Q6vwgVg%3d&risl=&pid=ImgRaw&r=0",
         },
         {
           key: 1,
+          courseId: "0002",
           title: "小学课程",
           imgUrl:
             "https://th.bing.com/th/id/OIP.XUf-3lCCltajZEMpDfmGNgHaE7?w=269&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",
         },
         {
           key: 2,
+          courseId: "0003",
           title: "计算机课程",
           imgUrl:
             "https://th.bing.com/th/id/OIP.Jr3VjdYkihZxXcrxRuFTmwHaEK?w=329&h=185&c=7&r=0&o=5&dpr=1.3&pid=1.7",
@@ -117,6 +121,10 @@ export default {
       that.resetLoading = true;
       that.courseName = "";
       that.getCourseList();
+    },
+    // 跳转课程详情页
+    goCourseDetail(courseId) {
+      this.$router.push({ name: "courseDetail", query: { courseId } });
     },
   },
 };
