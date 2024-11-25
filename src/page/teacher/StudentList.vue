@@ -342,6 +342,7 @@ export default {
       that.studentId = "";
       that.studentCourse = null;
       that.studentEva = null;
+      // 待定，此方法不适合用于封装组件
       that.$refs.table.reset();
       that.getTableData();
     },
