@@ -1,5 +1,4 @@
 import { createWebHistory, createRouter } from "vue-router";
-import NotFound from "@/view/NotFound.vue";
 
 const routes = [
   {
@@ -9,11 +8,20 @@ const routes = [
     },
   },
   {
-    path: "/index",
-    name: "index",
+    path: "/welcome",
+    name: "welcome",
     components: {
-      main: () => import("@/view/MainView"),
+      main: () => import("@/view/WelcomeView"),
     },
+    children: [
+      {
+        path: "logIn",
+        name: "logIn",
+        components: {
+          form: () => import("@/page/welcome/LogIn"),
+        },
+      },
+    ],
   },
   {
     path: "/teacher",
