@@ -4,19 +4,41 @@
 
 /* 长宽100% */
 .all-w-h {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+/* 绝对定位 左 上 无间隙 */
+.pos-ab-l-t {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+/* 绝对定位 右 下 无间隙 */
+.pos-ab-r-b {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+/* 绝对定位 容器中心 */
+.pos-ab-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 /* 标题式文字 */
 .title {
   font-weight: 800;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
+  padding: 5px;
 }
 
 /* 自动外边距 */
 .m-auto {
-  margin: auto 0;
+  margin: 0 auto;
 }
 /* 左外边距 */
 .m-l {

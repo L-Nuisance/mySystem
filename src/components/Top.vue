@@ -52,10 +52,6 @@ export default {
   height: 5vh;
   color: white;
   background-color: #0f172a;
-  border-radius: 5px 5px 0 0;
-}
-.test {
-  background-color: red;
 }
 .avatar {
   height: 5vh;

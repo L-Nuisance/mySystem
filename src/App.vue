@@ -1,5 +1,5 @@
 <template>
-  <router-view name="main" id="main" class="all-w-h"></router-view>
+  <router-view name="main" id="main" class="all-w-h pos-ab-l-t"></router-view>
 </template>
 
 <script>
