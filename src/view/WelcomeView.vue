@@ -4,7 +4,7 @@
       <img style="width: 40vw" src="../img/welcome.png" alt="欢迎" />
       <div class="welcome-form">
         <router-view
-          style="width: 32vw"
+          style="width: 32vw; height: 80vh"
           class="form m-auto"
           id="form"
           name="form"
