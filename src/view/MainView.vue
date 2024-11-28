@@ -11,7 +11,7 @@
         <router-view
           name="content"
           id="content"
-          class="content m-l m-t"
+          class="content m-l m-t m-r"
         ></router-view>
       </el-col>
     </el-row>
@@ -130,7 +130,7 @@ export default {
         avatar:
           "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
         userName: "昵称",
-        logo: "https://th.bing.com/th?id=ODLS.0acfef95-5236-420f-8b5a-adb35f65106a&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2",
+        logo: "https://www.hnu.edu.cn/images/logo.png",
       };
       return topData;
     },
