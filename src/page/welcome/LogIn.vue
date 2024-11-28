@@ -19,12 +19,18 @@
         ></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button style="width: 100%" type="primary" @click="logIn"
+        <el-button
+          size="large"
+          style="width: 100%"
+          type="primary"
+          @click="logIn"
           >登录</el-button
         >
       </el-form-item>
       <el-form-item>
-        <el-button style="width: 100%">注册</el-button>
+        <el-button size="large" style="width: 100%" @click="goRegister"
+          >注册</el-button
+        >
       </el-form-item>
     </el-form>
   </div>
@@ -50,6 +56,8 @@ export default {
       const temp = JSON.parse(JSON.stringify(that.formData));
       if (that.checkForm()) {
         console.log(temp);
+        localStorage.setItem("mySystem-token", "token");
+        that.$router.push({ name: "courseList" });
       }
     },
     // 检查表单
@@ -63,6 +71,11 @@ export default {
         return false;
       }
       return true;
+    },
+    // 去注册
+    goRegister() {
+      const that = this;
+      that.$router.push({ name: "register" });
     },
   },
 };
