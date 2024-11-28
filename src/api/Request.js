@@ -1,5 +1,6 @@
 import baseUrl from "./BaseUrl";
 import axios from "axios";
+import router from "@/router";
 import { ElMessage } from "element-plus";
 
 /**
@@ -25,6 +26,11 @@ axios.interceptors.request.use(
  */
 axios.interceptors.response.use(
   (response) => {
+    // 后端token验证失败处理
+    if (response.returnCode === "") {
+      ElMessage.warning({ message: "未登录或登陆已过期" });
+      router.replace({ name: "logIn" });
+    }
     return response;
   },
   (error) => {

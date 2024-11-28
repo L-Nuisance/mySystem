@@ -1,11 +1,11 @@
 import { createWebHistory, createRouter } from "vue-router";
+import { getToken } from "@/api/user";
+import { ElMessage } from "element-plus";
 
 const routes = [
   {
     path: "/",
-    components: {
-      main: () => import("@/view/MainView"),
-    },
+    redirect: "/welcome/logIn",
   },
   {
     path: "/welcome",
@@ -19,6 +19,13 @@ const routes = [
         name: "logIn",
         components: {
           form: () => import("@/page/welcome/LogIn"),
+        },
+      },
+      {
+        path: "register",
+        name: "register",
+        components: {
+          form: () => import("@/page/welcome/Register"),
         },
       },
     ],
@@ -66,6 +73,17 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach((to) => {
+  console.log(to);
+  if (to.name === "logIn" || to.name === "register") {
+    return true;
+  }
+  if (!getToken()) {
+    ElMessage.warning({ message: "未登录或登陆已过期" });
+    router.replace({ name: "logIn" });
+  }
 });
 
 export default router;
