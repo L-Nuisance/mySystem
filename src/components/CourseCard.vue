@@ -45,4 +45,15 @@ export default {
 </script>
 
 <style scoped>
+.courseCard:hover {
+  animation: fly 1s forwards;
+}
+@keyframes fly {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(0, -2%);
+  }
+}
 </style>
