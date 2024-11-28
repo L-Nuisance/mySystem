@@ -11,21 +11,28 @@
           />
         </div>
       </el-col>
-      <el-col :span="20"></el-col>
-      <el-col class="cursor-pointer" :span="2">
+      <el-col :span="18"></el-col>
+      <el-col class="cursor-pointer" :span="4">
         <el-row align="middle">
           <el-col :span="4"></el-col>
-          <el-col :span="8">
+          <el-col :span="5">
             <div class="avatar ali-item-center">
               <el-avatar :size="30" :src="props.avatar" />
             </div>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="5">
             <div class="ali-item-center">
               <span class="nowrap-ellipsis">{{ props.userName }}</span>
-              <el-icon><ArrowDown /></el-icon>
             </div>
           </el-col>
+          <el-col :span="5">
+            <div class="ali-item-center">
+              <el-button type="primary" color="#30f172a" @click="logOut">
+                退出登录</el-button
+              >
+            </div>
+          </el-col>
+          <el-col :span="5"></el-col>
         </el-row>
       </el-col>
     </el-row>
@@ -33,15 +40,33 @@
 </template>
 
 <script>
-import { ArrowDown } from "@element-plus/icons-vue";
+import { ElMessage, ElMessageBox } from "element-plus";
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Top",
   props: {
     props: Object,
   },
-  components: {
-    ArrowDown,
+  methods: {
+    // 退出登录
+    logOut() {
+      const that = this;
+      ElMessageBox.confirm("确认退出登录？", {
+        distinguishCancelAndClose: true,
+        confirmButtonText: "确认",
+        cancelButtonText: "取消",
+      })
+        .then(() => {
+          console.log("LogOut");
+          // 退出登录请求
+          localStorage.removeItem("mySystem-token");
+          that.$router.replace({ name: "logIn" });
+          ElMessage.success({ message: "已退出登录" });
+        })
+        .catch((action) => {
+          console.log(action);
+        });
+    },
   },
 };
 </script>
