@@ -9,6 +9,7 @@
           element-loading-text="数据加载中..."
           :data="data"
           :max-height="height"
+          @selection-change="selectionChange"
           stripe
           border
           style="width: 100%"
@@ -16,6 +17,7 @@
           <el-table-column
             v-for="column in columns"
             :type="column.type"
+            :selectable="column.selectable"
             :index="column.index"
             :key="column.index"
             :prop="column.prop"
@@ -29,6 +31,7 @@
             :class-name="column.className"
             :fixed="column.fixed"
             :sortable="column.sortable"
+            :resizable="false"
           ></el-table-column>
           <template #empty>
             <el-empty description="啊哦，数据丢失辽..." image-size="100">
@@ -133,6 +136,10 @@ export default {
       const that = this;
       that.pageSize = 10;
       that.currentPage = 1;
+    },
+    selectionChange(newSelection) {
+      const that = this;
+      that.$emit("SelectionChange", newSelection);
     },
   },
 };

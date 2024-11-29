@@ -267,7 +267,6 @@ export default {
         },
       ],
       total: 990,
-      height: "75vh",
 
       // 数据穿透
       allTestProps: {},
@@ -344,7 +343,7 @@ export default {
       that.studentEva = null;
       // 待定，此方法不适合用于封装组件
       that.$refs.table.reset();
-      that.getTableData();
+      that.$nextTick(that.getTableData);
     },
     // 表格页码变化处理方法
     pageChang(pageSize, currentPage) {

@@ -51,10 +51,10 @@ const routes = [
         },
       },
       {
-        path: "courseDetail",
-        name: "courseDetail",
+        path: "teacherCourse",
+        name: "teacherCourse",
         components: {
-          content: () => import("@/page/teacher/CourseDetail"),
+          content: () => import("@/page/teacher/TeacherCourse"),
         },
       },
     ],
@@ -76,7 +76,6 @@ const router = createRouter({
 });
 
 router.beforeEach((to) => {
-  console.log(to);
   if (to.name === "logIn" || to.name === "register") {
     return true;
   }
