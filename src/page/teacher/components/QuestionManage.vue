@@ -91,11 +91,13 @@
         @SelectionChange="selectionChange"
       ></Table>
     </el-row>
+    <QuestionCard ref="questionCard" :props="cardProps"></QuestionCard>
   </div>
 </template>
 
 <script>
 import Table from "@/components/Table.vue";
+import QuestionCard from "./QuestionCard.vue";
 import { ElButton } from "element-plus";
 import { Search, Refresh } from "@element-plus/icons-vue";
 import { h } from "vue";
@@ -104,6 +106,7 @@ export default {
   name: "QuestionManage",
   components: {
     Table,
+    QuestionCard,
   },
   data() {
     return {
@@ -228,11 +231,44 @@ export default {
         {
           index: 5,
           label: "操作",
-          formatter: () => {
+          formatter: (row) => {
             const node = h("div", [
-              h(ElButton, { link: true, type: "default" }, "查看"),
-              h(ElButton, { link: true, type: "primary" }, "编辑"),
-              h(ElButton, { link: true, type: "danger" }, "删除"),
+              h(
+                ElButton,
+                {
+                  link: true,
+                  type: "default",
+                  onClick: () => {
+                    const that = this;
+                    that.openQuestionCard(row, "check");
+                  },
+                },
+                "查看"
+              ),
+              h(
+                ElButton,
+                {
+                  link: true,
+                  type: "primary",
+                  onClick: () => {
+                    const that = this;
+                    that.openQuestionCard(row, "edit");
+                  },
+                },
+                "编辑"
+              ),
+              h(
+                ElButton,
+                {
+                  link: true,
+                  type: "danger",
+                  onClick: () => {
+                    const that = this;
+                    that.openQuestionCard(row, "delete");
+                  },
+                },
+                "删除"
+              ),
             ]);
             return node;
           },
@@ -259,6 +295,9 @@ export default {
 
       /* 批量删除列表 */
       deleteList: [],
+
+      /* 题目卡片 */
+      cardProps: {},
     };
   },
   methods: {
@@ -319,6 +358,18 @@ export default {
     delete() {
       const that = this;
       console.log(that.deleteList);
+    },
+    // 打开题目卡片
+    openQuestionCard(row, flag) {
+      const that = this;
+      const title =
+        flag === "check"
+          ? "查看题目"
+          : flag === "edit"
+          ? "编辑题目"
+          : "删除题目";
+      that.cardProps = { question: row, title: title, flag: flag };
+      that.$nextTick(that.$refs.questionCard.openCard);
     },
   },
 };

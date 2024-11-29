@@ -124,7 +124,7 @@ export default {
     },
     // 跳转课程详情页
     goCourseDetail(courseId) {
-      this.$router.push({ name: "courseDetail", query: { courseId } });
+      this.$router.push({ name: "teacherCourse", query: { courseId } });
     },
   },
 };
